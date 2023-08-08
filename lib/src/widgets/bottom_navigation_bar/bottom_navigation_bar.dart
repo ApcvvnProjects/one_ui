@@ -1,8 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:one_ui/src/effects/bottom_navigation_bar_ink_splash.dart';
 import 'package:one_ui/src/widgets/bottom_navigation_bar/bottom_navigation_bar_item.dart';
 import 'package:vector_math/vector_math_64.dart' show Vector3;
@@ -52,13 +50,13 @@ class OneUIBottomNavigationBar extends StatefulWidget {
   final Color? backgroundColor;
 
   /// The color of the selected [OneUIBottomNavigationBarItem.label] and
-  /// [OneUIBottomNavigationBarItem.title].
+  /// [OneUIBottomNavigationBarItem.label].
   ///
   /// If null then the [ThemeData.primaryColor] is used.
   final Color? selectedItemColor;
 
   /// The color of the unselected [OneUIBottomNavigationBarItem.label] and
-  /// [OneUIBottomNavigationBarItem.title]s.
+  /// [OneUIBottomNavigationBarItem.label]s.
   ///
   /// If null then the [ThemeData.unselectedWidgetColor]'s color is used.
   final Color? unselectedItemColor;
@@ -220,7 +218,7 @@ class _Label extends StatelessWidget {
                 ),
               ),
               alignment: Alignment.bottomCenter,
-              child: item.title ?? Text(item.label!),
+              child: Text(item.label!),
             ),
           ),
         ),
@@ -336,7 +334,7 @@ class _OneUIBottomNavigationBarState extends State<OneUIBottomNavigationBar>
       end: widget.selectedItemColor ??
           bottomTheme.selectedItemColor ??
           widget.fixedColor ??
-          themeData.textTheme.bodyText1?.color,
+          themeData.textTheme.bodyLarge?.color,
     );
     final MouseCursor effectiveMouseCursor =
         widget.mouseCursor ?? SystemMouseCursors.click;
@@ -381,7 +379,6 @@ class _OneUIBottomNavigationBarState extends State<OneUIBottomNavigationBar>
   Widget build(BuildContext context) {
     assert(debugCheckHasDirectionality(context));
     assert(debugCheckHasMediaQuery(context));
-    assert(Overlay.of(context, debugRequiredFor: widget) != null);
 
     final BottomNavigationBarThemeData bottomTheme =
         BottomNavigationBarTheme.of(context);

@@ -199,7 +199,7 @@ class _OneUIViewState extends State<OneUIView> {
     if (widget.useOneUITextStyle) {
       largeTitle = DefaultTextStyle(
         style: widget.largeTitleTextStyle ??
-            Theme.of(context).textTheme.headline6!.copyWith(
+            Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.w300,
                   fontSize: 40.0,
                 ),

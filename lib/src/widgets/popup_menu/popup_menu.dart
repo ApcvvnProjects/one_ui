@@ -2,8 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:one_ui/one_ui.dart';
-import 'package:one_ui/src/effects/ink_ripple.dart';
-import 'package:one_ui/src/widgets/buttons/icon_button.dart';
 
 const Duration _kMenuDuration = Duration(milliseconds: 200);
 const Duration _kMenuReverseDuration = Duration(milliseconds: 150);
@@ -70,7 +68,7 @@ class OneUIPopupMenuItem<T> extends PopupMenuEntry<T> {
   /// The text style of the popup menu item.
   ///
   /// If this property is null, then [PopupMenuThemeData.textStyle] is used.
-  /// If [PopupMenuThemeData.textStyle] is also null, then [TextTheme.subtitle1]
+  /// If [PopupMenuThemeData.textStyle] is also null, then [TextTheme.titleMedium]
   /// of [ThemeData.textTheme] is used.
   final TextStyle? textStyle;
 
@@ -148,7 +146,7 @@ class OneUIPopupMenuItemState<T, W extends OneUIPopupMenuItem<T>>
     final PopupMenuThemeData popupMenuTheme = PopupMenuTheme.of(context);
     TextStyle style = widget.textStyle ??
         popupMenuTheme.textStyle ??
-        theme.textTheme.subtitle1!;
+        theme.textTheme.titleMedium!;
 
     if (!widget.enabled) style = style.copyWith(color: theme.disabledColor);
 
