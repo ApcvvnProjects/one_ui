@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:one_ui/src/effects/ink_ripple.dart';
 
 class OneUIFlatButton extends TextButton {
@@ -39,11 +38,10 @@ class OneUIFlatButton extends TextButton {
     );
 
     return TextButton.styleFrom(
-      onSurface: colorScheme.onSurface,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.transparent, disabledForegroundColor: colorScheme.onSurface.withOpacity(0.38),
       shadowColor: theme.shadowColor,
       elevation: 0,
-      textStyle: theme.textTheme.button,
+      textStyle: theme.textTheme.labelLarge,
       padding: scaledPadding,
       minimumSize: const Size(64, 36),
       maximumSize: Size.infinite,

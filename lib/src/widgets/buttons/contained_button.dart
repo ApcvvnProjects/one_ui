@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:one_ui/src/effects/ink_ripple.dart';
 
 class OneUIContainedButton extends ElevatedButton {
@@ -39,12 +38,10 @@ class OneUIContainedButton extends ElevatedButton {
     );
 
     return ElevatedButton.styleFrom(
-      primary: colorScheme.primary,
-      onPrimary: colorScheme.onPrimary,
-      onSurface: colorScheme.onSurface,
+      foregroundColor: colorScheme.onPrimary, backgroundColor: colorScheme.primary, disabledForegroundColor: colorScheme.onSurface.withOpacity(0.38), disabledBackgroundColor: colorScheme.onSurface.withOpacity(0.12),
       shadowColor: theme.shadowColor,
       elevation: 2,
-      textStyle: theme.textTheme.button,
+      textStyle: theme.textTheme.labelLarge,
       padding: scaledPadding,
       minimumSize: const Size(64, 36),
       maximumSize: Size.infinite,

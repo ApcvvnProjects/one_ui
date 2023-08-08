@@ -100,7 +100,7 @@ class OneUISlider extends StatefulWidget {
   /// It is used to display the value of a discrete slider, and it is displayed
   /// as part of the value indicator shape.
   ///
-  /// The label is rendered using the active [ThemeData]'s [TextTheme.bodyText1]
+  /// The label is rendered using the active [ThemeData]'s [TextTheme.bodyLarge]
   /// text style, with the theme data's [ColorScheme.onPrimary] color. The
   /// label's text style can be overridden with
   /// [SliderThemeData.valueIndicatorTextStyle].
@@ -473,7 +473,7 @@ class _SliderState extends State<OneUISlider> with TickerProviderStateMixin {
       showValueIndicator:
           sliderTheme.showValueIndicator ?? _defaultShowValueIndicator,
       valueIndicatorTextStyle: sliderTheme.valueIndicatorTextStyle ??
-          theme.textTheme.bodyText1!.copyWith(
+          theme.textTheme.bodyLarge!.copyWith(
             color: theme.colorScheme.onPrimary,
           ),
     );
@@ -548,7 +548,7 @@ class _SliderState extends State<OneUISlider> with TickerProviderStateMixin {
           );
         },
       );
-      Overlay.of(context)!.insert(overlayEntry!);
+      Overlay.of(context).insert(overlayEntry!);
     }
   }
 }
