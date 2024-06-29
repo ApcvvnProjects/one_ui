@@ -441,32 +441,32 @@ class _OneUIAppBarState extends State<OneUIAppBar> {
         overallIconTheme;
 
     TextStyle? toolbarTextStyle = backwardsCompatibility
-        ? widget.textTheme?.bodyText2 ??
+        ? widget.textTheme?.bodyMedium ??
             appBarTheme.toolbarTextStyle ??
-            theme.primaryTextTheme.bodyText2
+            theme.primaryTextTheme.bodyMedium
         : widget.toolbarTextStyle ??
             appBarTheme.toolbarTextStyle ??
-            theme.textTheme.bodyText2?.copyWith(color: foregroundColor);
+            theme.textTheme.bodyMedium?.copyWith(color: foregroundColor);
 
     TextStyle? titleTextStyle = backwardsCompatibility
-        ? widget.textTheme?.headline6 ??
+        ? widget.textTheme?.titleLarge ??
             appBarTheme.titleTextStyle ??
-            theme.primaryTextTheme.headline6
+            theme.primaryTextTheme.titleLarge
         : widget.titleTextStyle ??
             appBarTheme.titleTextStyle ??
-            theme.textTheme.headline6?.copyWith(color: foregroundColor);
+            theme.textTheme.titleLarge?.copyWith(color: foregroundColor);
 
     if (widget.toolbarOpacity != 1.0) {
       final double opacity =
           const Interval(0.25, 1.0, curve: Curves.fastOutSlowIn)
               .transform(widget.toolbarOpacity);
       if (titleTextStyle?.color != null) {
-        titleTextStyle = titleTextStyle!
-            .copyWith(color: titleTextStyle.color!.withOpacity(opacity));
+        titleTextStyle = titleTextStyle
+            ?.copyWith(color: titleTextStyle.color!.withOpacity(opacity));
       }
       if (toolbarTextStyle?.color != null) {
-        toolbarTextStyle = toolbarTextStyle!
-            .copyWith(color: toolbarTextStyle.color!.withOpacity(opacity));
+        toolbarTextStyle = toolbarTextStyle
+            ?.copyWith(color: toolbarTextStyle.color!.withOpacity(opacity));
       }
       overallIconTheme = overallIconTheme.copyWith(
         opacity: opacity * (overallIconTheme.opacity ?? 1.0),
@@ -538,10 +538,10 @@ class _OneUIAppBarState extends State<OneUIAppBar> {
       final MediaQueryData mediaQueryData = MediaQuery.of(context);
       title = MediaQuery(
         data: mediaQueryData.copyWith(
-          textScaleFactor: math.min(
+          textScaler: TextScaler.linear(math.min(
             mediaQueryData.textScaleFactor,
             _kMaxTitleTextScaleFactor,
-          ),
+          )),
         ),
         child: title,
       );

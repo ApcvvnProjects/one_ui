@@ -1,8 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:one_ui/src/effects/bottom_navigation_bar_ink_splash.dart';
 import 'package:one_ui/src/widgets/bottom_navigation_bar/bottom_navigation_bar_item.dart';
 import 'package:vector_math/vector_math_64.dart' show Vector3;
@@ -188,7 +186,7 @@ class _Label extends StatelessWidget {
 
     return MediaQuery(
       data: mediaQueryData.copyWith(
-        textScaleFactor: math.min(1.0, mediaQueryData.textScaleFactor),
+        textScaler: TextScaler.linear(math.min(1.0, mediaQueryData.textScaleFactor)),
       ),
       child: Align(
         alignment: Alignment.center,
@@ -336,7 +334,7 @@ class _OneUIBottomNavigationBarState extends State<OneUIBottomNavigationBar>
       end: widget.selectedItemColor ??
           bottomTheme.selectedItemColor ??
           widget.fixedColor ??
-          themeData.textTheme.bodyText1?.color,
+          themeData.textTheme.bodyLarge?.color,
     );
     final MouseCursor effectiveMouseCursor =
         widget.mouseCursor ?? SystemMouseCursors.click;
@@ -381,7 +379,6 @@ class _OneUIBottomNavigationBarState extends State<OneUIBottomNavigationBar>
   Widget build(BuildContext context) {
     assert(debugCheckHasDirectionality(context));
     assert(debugCheckHasMediaQuery(context));
-    assert(Overlay.of(context, debugRequiredFor: widget) != null);
 
     final BottomNavigationBarThemeData bottomTheme =
         BottomNavigationBarTheme.of(context);

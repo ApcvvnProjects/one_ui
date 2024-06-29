@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:one_ui/src/effects/ink_ripple.dart';
 
 const double _kMinButtonSize = kMinInteractiveDimension;
@@ -77,12 +76,12 @@ class OneUIIconButton extends IconButton {
     Widget result = ConstrainedBox(
       constraints: adjustedConstraints,
       child: Padding(
-        padding: padding,
+        padding: padding!,
         child: SizedBox(
           height: iconSize,
           width: iconSize,
           child: Align(
-            alignment: alignment,
+            alignment: alignment!,
             child: IconTheme.merge(
               data: IconThemeData(
                 size: iconSize,
@@ -111,7 +110,7 @@ class OneUIIconButton extends IconButton {
         canRequestFocus: onPressed != null,
         onTap: onPressed,
         mouseCursor: mouseCursor,
-        enableFeedback: enableFeedback,
+        enableFeedback: enableFeedback ?? true,
         child: result,
         focusColor: focusColor ?? theme.focusColor,
         hoverColor: hoverColor ?? theme.hoverColor,
@@ -121,7 +120,9 @@ class OneUIIconButton extends IconButton {
         radius: splashRadius ??
             math.max(
               Material.defaultSplashRadius,
-              (iconSize ?? 24.0 + math.min(padding.horizontal, padding.vertical)) * 0.7,
+              (iconSize ??
+                      24.0 + math.min(padding!.horizontal, padding!.vertical)) *
+                  0.7,
               // x 0.5 for diameter -> radius and + 40% overflow derived from other Material apps.
             ),
       ),
