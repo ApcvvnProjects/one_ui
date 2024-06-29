@@ -34,11 +34,12 @@ class OneUIFlatButton extends TextButton {
       const EdgeInsets.all(8),
       const EdgeInsets.symmetric(horizontal: 8),
       const EdgeInsets.symmetric(horizontal: 4),
-      MediaQuery.maybeOf(context)?.textScaleFactor ?? 1,
+      MediaQuery.textScaleFactorOf(context),
     );
 
     return TextButton.styleFrom(
-      backgroundColor: Colors.transparent, disabledForegroundColor: colorScheme.onSurface.withOpacity(0.38),
+      backgroundColor: Colors.transparent,
+      disabledForegroundColor: colorScheme.onSurface.withOpacity(0.38),
       shadowColor: theme.shadowColor,
       elevation: 0,
       textStyle: theme.textTheme.labelLarge,

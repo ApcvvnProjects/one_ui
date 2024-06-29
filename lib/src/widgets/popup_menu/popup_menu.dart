@@ -76,11 +76,11 @@ class OneUIPopupMenuItem<T> extends PopupMenuEntry<T> {
   /// widget.
   ///
   /// If [mouseCursor] is a [MaterialStateProperty<MouseCursor>],
-  /// [MaterialStateProperty.resolve] is used for the following [MaterialState]:
+  /// [WidgetStateProperty.resolve] is used for the following [MaterialState]:
   ///
-  ///  * [MaterialState.disabled].
+  ///  * [WidgetState.disabled].
   ///
-  /// If this property is null, [MaterialStateMouseCursor.clickable] will be used.
+  /// If this property is null, [WidgetStateMouseCursor.clickable] will be used.
   final MouseCursor? mouseCursor;
 
   /// The widget below this widget in the tree.
@@ -170,10 +170,10 @@ class OneUIPopupMenuItemState<T, W extends OneUIPopupMenuItem<T>>
       );
     }
     final MouseCursor effectiveMouseCursor =
-        MaterialStateProperty.resolveAs<MouseCursor>(
-      widget.mouseCursor ?? MaterialStateMouseCursor.clickable,
-      <MaterialState>{
-        if (!widget.enabled) MaterialState.disabled,
+        WidgetStateProperty.resolveAs<MouseCursor>(
+      widget.mouseCursor ?? WidgetStateMouseCursor.clickable,
+      <WidgetState>{
+        if (!widget.enabled) WidgetState.disabled,
       },
     );
 
