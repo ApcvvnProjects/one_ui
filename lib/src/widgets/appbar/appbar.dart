@@ -356,7 +356,7 @@ class OneUIAppBar extends StatefulWidget implements PreferredSizeWidget {
   ///
   /// If this property is null, then [AppBarTheme.toolbarTextStyle] of
   /// [ThemeData.appBarTheme] is used. If that is also null, the default
-  /// value is a copy of the overall theme's [TextTheme.bodyText2]
+  /// value is a copy of the overall theme's [TextTheme.bodyMedium]
   /// [TextStyle], with color set to the app bar's [foregroundColor].
   /// {@endtemplate}
   final TextStyle? toolbarTextStyle;
@@ -366,7 +366,7 @@ class OneUIAppBar extends StatefulWidget implements PreferredSizeWidget {
   ///
   /// If this property is null, then [AppBarTheme.titleTextStyle] of
   /// [ThemeData.appBarTheme] is used. If that is also null, the default
-  /// value is a copy of the overall theme's [TextTheme.headline6]
+  /// value is a copy of the overall theme's [TextTheme.titleLarge]
   /// [TextStyle], with color set to the app bar's [foregroundColor].
   /// {@endtemplate}
   final TextStyle? titleTextStyle;

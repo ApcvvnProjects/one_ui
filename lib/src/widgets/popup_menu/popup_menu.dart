@@ -68,7 +68,7 @@ class OneUIPopupMenuItem<T> extends PopupMenuEntry<T> {
   /// The text style of the popup menu item.
   ///
   /// If this property is null, then [PopupMenuThemeData.textStyle] is used.
-  /// If [PopupMenuThemeData.textStyle] is also null, then [TextTheme.subtitle1]
+  /// If [PopupMenuThemeData.textStyle] is also null, then [TextTheme.titleMedium]
   /// of [ThemeData.textTheme] is used.
   final TextStyle? textStyle;
 

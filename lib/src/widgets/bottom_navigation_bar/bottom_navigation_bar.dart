@@ -50,13 +50,13 @@ class OneUIBottomNavigationBar extends StatefulWidget {
   final Color? backgroundColor;
 
   /// The color of the selected [OneUIBottomNavigationBarItem.label] and
-  /// [OneUIBottomNavigationBarItem.title].
+  /// [OneUIBottomNavigationBarItem.label].
   ///
   /// If null then the [ThemeData.primaryColor] is used.
   final Color? selectedItemColor;
 
   /// The color of the unselected [OneUIBottomNavigationBarItem.label] and
-  /// [OneUIBottomNavigationBarItem.title]s.
+  /// [OneUIBottomNavigationBarItem.label]s.
   ///
   /// If null then the [ThemeData.unselectedWidgetColor]'s color is used.
   final Color? unselectedItemColor;
@@ -218,7 +218,7 @@ class _Label extends StatelessWidget {
                 ),
               ),
               alignment: Alignment.bottomCenter,
-              child: item.title ?? Text(item.label!),
+              child: Text(item.label!),
             ),
           ),
         ),

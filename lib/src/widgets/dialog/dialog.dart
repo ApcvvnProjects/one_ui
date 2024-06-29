@@ -286,7 +286,7 @@ class OneUIAlertDialog extends StatelessWidget {
   /// Style for the text in the [title] of this [OneUIAlertDialog].
   ///
   /// If null, [DialogTheme.titleTextStyle] is used. If that's null, defaults to
-  /// [TextTheme.headline6] of [ThemeData.textTheme].
+  /// [TextTheme.titleLarge] of [ThemeData.textTheme].
   final TextStyle? titleTextStyle;
 
   /// The (optional) content of the dialog is displayed in the center of the
@@ -309,7 +309,7 @@ class OneUIAlertDialog extends StatelessWidget {
   /// Style for the text in the [content] of this [OneUIAlertDialog].
   ///
   /// If null, [DialogTheme.contentTextStyle] is used. If that's null, defaults
-  /// to [TextTheme.subtitle1] of [ThemeData.textTheme].
+  /// to [TextTheme.titleMedium] of [ThemeData.textTheme].
   final TextStyle? contentTextStyle;
 
   /// The (optional) set of actions that are displayed at the bottom of the
