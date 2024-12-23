@@ -318,13 +318,13 @@ class OneUIAlertDialog extends StatelessWidget {
   /// Typically this is a list of [TextButton] widgets. It is recommended to
   /// set the [Text.textAlign] to [TextAlign.end] for the [Text] within the
   /// [TextButton], so that buttons whose labels wrap to an extra line align
-  /// with the overall [ButtonBar]'s alignment within the dialog.
+  /// with the overall [OverflowBar]'s alignment within the dialog.
   ///
-  /// These widgets will be wrapped in a [ButtonBar], which introduces 8 pixels
+  /// These widgets will be wrapped in a [OverflowBar], which introduces 8 pixels
   /// of padding on each side.
   ///
   /// If the [title] is not null but the [content] _is_ null, then an extra 20
-  /// pixels of padding is added above the [ButtonBar] to separate the [title]
+  /// pixels of padding is added above the [OverflowBar] to separate the [title]
   /// from the [actions].
   final List<OneUIDialogAction>? actions;
 
@@ -351,7 +351,7 @@ class OneUIAlertDialog extends StatelessWidget {
   /// bottom and "ends" at the top.
   ///
   /// If null then it will use the surrounding
-  /// [ButtonBarThemeData.overflowDirection]. If that is null, it will
+  /// [OverflowBar.overflowDirection]. If that is null, it will
   /// default to [VerticalDirection.down].
   final VerticalDirection? actionsOverflowDirection;
 
@@ -434,7 +434,7 @@ class OneUIAlertDialog extends StatelessWidget {
     // The paddingScaleFactor is used to adjust the padding of Dialog's
     // children.
     final double paddingScaleFactor =
-        _paddingScaleFactor(MediaQuery.of(context).textScaleFactor);
+        _paddingScaleFactor(MediaQuery.of(context).textScaler.scale(1));
     final TextDirection? textDirection = Directionality.maybeOf(context);
 
     Widget? titleWidget;

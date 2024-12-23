@@ -152,8 +152,6 @@ class OneUISlider extends StatefulWidget {
   /// This is used by accessibility frameworks like TalkBack on Android to
   /// inform users what the currently selected value is with more context.
   ///
-  /// {@tool snippet}
-  ///
   /// In the example below, a slider for currency values is configured to
   /// announce a value with a currency label.
   final SemanticFormatterCallback? semanticFormatterCallback;
@@ -514,7 +512,7 @@ class _SliderState extends State<OneUISlider> with TickerProviderStateMixin {
             divisions: widget.divisions,
             label: widget.label,
             sliderTheme: sliderTheme,
-            textScaleFactor: MediaQuery.of(context).textScaleFactor,
+            textScaleFactor: MediaQuery.of(context).textScaler.scale(1),
             screenSize: _screenSize(),
             onChanged: (widget.onChanged != null) && (widget.max > widget.min)
                 ? _handleChanged
@@ -961,7 +959,7 @@ class _RenderSlider extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
           text: label,
         )
         ..textDirection = textDirection
-        ..textScaleFactor = textScaleFactor
+        ..textScaler = TextScaler.linear(textScaleFactor)
         ..layout();
     } else {
       _labelPainter.text = null;
