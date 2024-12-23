@@ -186,7 +186,10 @@ class _Label extends StatelessWidget {
 
     return MediaQuery(
       data: mediaQueryData.copyWith(
-        textScaler: TextScaler.linear(math.min(1.0, mediaQueryData.textScaleFactor)),
+        textScaler: TextScaler.linear(math.min(
+          1.0,
+          mediaQueryData.textScaler.scale(1),
+        )),
       ),
       child: Align(
         alignment: Alignment.center,

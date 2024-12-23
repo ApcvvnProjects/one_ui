@@ -34,7 +34,7 @@ class OneUIFlatButton extends TextButton {
       const EdgeInsets.all(8),
       const EdgeInsets.symmetric(horizontal: 8),
       const EdgeInsets.symmetric(horizontal: 4),
-      MediaQuery.textScaleFactorOf(context),
+      MediaQuery.textScalerOf(context).scale(1),
     );
 
     return TextButton.styleFrom(

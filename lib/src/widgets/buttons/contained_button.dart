@@ -34,7 +34,7 @@ class OneUIContainedButton extends ElevatedButton {
       const EdgeInsets.symmetric(horizontal: 16),
       const EdgeInsets.symmetric(horizontal: 8),
       const EdgeInsets.symmetric(horizontal: 4),
-      MediaQuery.maybeOf(context)?.textScaleFactor ?? 1,
+      MediaQuery.maybeOf(context)?.textScaler.scale(1.0) ?? 1.0,
     );
 
     return ElevatedButton.styleFrom(

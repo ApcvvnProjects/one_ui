@@ -539,7 +539,7 @@ class _OneUIAppBarState extends State<OneUIAppBar> {
       title = MediaQuery(
         data: mediaQueryData.copyWith(
           textScaler: TextScaler.linear(math.min(
-            mediaQueryData.textScaleFactor,
+            mediaQueryData.textScaler.scale(1.0),
             _kMaxTitleTextScaleFactor,
           )),
         ),
