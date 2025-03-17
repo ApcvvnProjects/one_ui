@@ -76,7 +76,7 @@ class OneUIPopupMenuItem<T> extends PopupMenuEntry<T> {
   /// widget.
   ///
   /// If [mouseCursor] is a [MaterialStateProperty<MouseCursor>],
-  /// [WidgetStateProperty.resolve] is used for the following [MaterialState]:
+  /// [WidgetStateProperty.resolve] is used for the following [WidgetState]:
   ///
   ///  * [WidgetState.disabled].
   ///

@@ -93,9 +93,9 @@ class OneUIInkRipple extends InteractiveInkFeature {
         AnimationController(duration: _kFadeInDuration, vsync: controller.vsync)
           ..addListener(controller.markNeedsPaint)
           ..forward();
-    _fadeIn = _fadeInController.drive(IntTween(
+    _fadeIn = _fadeInController.drive(Tween<double>(
       begin: 0,
-      end: color.alpha,
+      end: color.a,
     ));
 
     // Controls the splash radius and its center. Starts upon confirm.
@@ -119,8 +119,8 @@ class OneUIInkRipple extends InteractiveInkFeature {
       ..addListener(controller.markNeedsPaint)
       ..addStatusListener(_handleAlphaStatusChanged);
     _fadeOut = _fadeOutController.drive(
-      IntTween(
-        begin: color.alpha,
+      Tween<double>(
+        begin: color.a,
         end: 0,
       ).chain(_fadeOutIntervalTween),
     );
@@ -138,10 +138,10 @@ class OneUIInkRipple extends InteractiveInkFeature {
   late Animation<double> _radius;
   late AnimationController _radiusController;
 
-  late Animation<int> _fadeIn;
+  late Animation<double> _fadeIn;
   late AnimationController _fadeInController;
 
-  late Animation<int> _fadeOut;
+  late Animation<double> _fadeOut;
   late AnimationController _fadeOutController;
 
   /// Used to specify this type of ink splash for an [InkWell], [InkResponse],
@@ -190,8 +190,9 @@ class OneUIInkRipple extends InteractiveInkFeature {
 
   @override
   void paintFeature(Canvas canvas, Matrix4 transform) {
-    final int alpha =
-        _fadeInController.isAnimating ? _fadeIn.value : _fadeOut.value;
+    final int alpha = _fadeInController.isAnimating
+        ? _fadeIn.value.toInt()
+        : _fadeOut.value.toInt();
     final Paint paint = Paint()..color = color.withAlpha(alpha);
     // Splash moves to the center of the reference box.
     final Offset center = Offset.lerp(
