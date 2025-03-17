@@ -38,7 +38,10 @@ class OneUIContainedButton extends ElevatedButton {
     );
 
     return ElevatedButton.styleFrom(
-      foregroundColor: colorScheme.onPrimary, backgroundColor: colorScheme.primary, disabledForegroundColor: colorScheme.onSurface.withOpacity(0.38), disabledBackgroundColor: colorScheme.onSurface.withOpacity(0.12),
+      foregroundColor: colorScheme.onPrimary,
+      backgroundColor: colorScheme.primary,
+      disabledForegroundColor: colorScheme.onSurface.withValues(alpha: 0.38),
+      disabledBackgroundColor: colorScheme.onSurface.withValues(alpha: 0.12),
       shadowColor: theme.shadowColor,
       elevation: 2,
       textStyle: theme.textTheme.labelLarge,

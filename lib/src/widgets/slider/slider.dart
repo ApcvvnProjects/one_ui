@@ -409,8 +409,8 @@ class _SliderState extends State<OneUISlider> with TickerProviderStateMixin {
     final Color valueIndicatorColor;
     if (valueIndicatorShape is RectangularSliderValueIndicatorShape) {
       valueIndicatorColor = sliderTheme.valueIndicatorColor ??
-          Color.alphaBlend(theme.colorScheme.onSurface.withOpacity(0.60),
-              theme.colorScheme.surface.withOpacity(0.90));
+          Color.alphaBlend(theme.colorScheme.onSurface.withValues(alpha: 0.60),
+              theme.colorScheme.surface.withValues(alpha: 0.90));
     } else {
       valueIndicatorColor = widget.useOneUIColor
           ? const Color(0xff0381fe)
@@ -427,29 +427,29 @@ class _SliderState extends State<OneUISlider> with TickerProviderStateMixin {
               sliderTheme.activeTrackColor ??
               theme.colorScheme.primary,
       inactiveTrackColor: widget.useOneUIColor
-          ? const Color(0xff0381fe).withOpacity(0.24)
+          ? const Color(0xff0381fe).withValues(alpha: 0.24)
           : widget.inactiveColor ??
               sliderTheme.inactiveTrackColor ??
-              theme.colorScheme.primary.withOpacity(0.24),
+              theme.colorScheme.primary.withValues(alpha: 0.24),
       disabledActiveTrackColor: widget.useOneUIColor
           ? const Color(0xffd2d2d2)
           : sliderTheme.disabledActiveTrackColor ??
-              theme.colorScheme.onSurface.withOpacity(0.32),
+              theme.colorScheme.onSurface.withValues(alpha: 0.32),
       disabledInactiveTrackColor: widget.useOneUIColor
-          ? const Color(0xff0381fe).withOpacity(0.24)
+          ? const Color(0xff0381fe).withValues(alpha: 0.24)
           : sliderTheme.disabledInactiveTrackColor ??
-              theme.colorScheme.primary.withOpacity(0.24),
+              theme.colorScheme.primary.withValues(alpha: 0.24),
       activeTickMarkColor: widget.inactiveColor ??
           sliderTheme.activeTickMarkColor ??
-          theme.colorScheme.onPrimary.withOpacity(0.54),
+          theme.colorScheme.onPrimary.withValues(alpha: 0.54),
       inactiveTickMarkColor: widget.activeColor ??
           sliderTheme.inactiveTickMarkColor ??
-          theme.colorScheme.primary.withOpacity(0.54),
+          theme.colorScheme.primary.withValues(alpha: 0.54),
       disabledActiveTickMarkColor: sliderTheme.disabledActiveTickMarkColor ??
-          theme.colorScheme.onPrimary.withOpacity(0.12),
+          theme.colorScheme.onPrimary.withValues(alpha: 0.12),
       disabledInactiveTickMarkColor:
           sliderTheme.disabledInactiveTickMarkColor ??
-              theme.colorScheme.onSurface.withOpacity(0.12),
+              theme.colorScheme.onSurface.withValues(alpha: 0.12),
       thumbColor: widget.useOneUIColor
           ? const Color(0xff0381fe)
           : widget.activeColor ??
@@ -458,10 +458,11 @@ class _SliderState extends State<OneUISlider> with TickerProviderStateMixin {
       disabledThumbColor: widget.useOneUIColor
           ? const Color(0xffd2d2d2)
           : sliderTheme.disabledThumbColor ??
-              Color.alphaBlend(theme.colorScheme.onSurface.withOpacity(.38),
+              Color.alphaBlend(
+                  theme.colorScheme.onSurface.withValues(alpha: .38),
                   theme.colorScheme.surface),
       overlayColor: sliderTheme.overlayColor ??
-          theme.colorScheme.onSurface.withOpacity(0.12),
+          theme.colorScheme.onSurface.withValues(alpha: 0.12),
       valueIndicatorColor: valueIndicatorColor,
       trackShape: sliderTheme.trackShape ?? _defaultTrackShape,
       tickMarkShape: sliderTheme.tickMarkShape ?? _defaultTickMarkShape,

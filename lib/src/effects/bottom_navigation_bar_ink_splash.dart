@@ -92,9 +92,9 @@ class OneUIBottomNavigationBarSplash extends InteractiveInkFeature {
     )
       ..addListener(controller.markNeedsPaint)
       ..forward();
-    _alpha = _alphaController.drive(IntTween(
+    _alpha = _alphaController.drive(Tween<double>(
       begin: 0,
-      end: color.alpha,
+      end: color.a,
     ));
 
     controller.addInkFeature(this);
@@ -107,7 +107,7 @@ class OneUIBottomNavigationBarSplash extends InteractiveInkFeature {
   final TextDirection _textDirection;
   late Animation<double> _scale;
   late AnimationController _scaleController;
-  late Animation<int> _alpha;
+  late Animation<double> _alpha;
   late AnimationController _alphaController;
 
   /// Used to specify this type of ink splash for an [InkWell], [InkResponse],
@@ -140,7 +140,7 @@ class OneUIBottomNavigationBarSplash extends InteractiveInkFeature {
 
   @override
   void paintFeature(Canvas canvas, Matrix4 transform) {
-    final Paint paint = Paint()..color = color.withAlpha(_alpha.value);
+    final Paint paint = Paint()..color = color.withAlpha(_alpha.value.toInt());
     Offset center = referenceBox.size.center(Offset.zero);
 
     paintInkRRect(

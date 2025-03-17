@@ -113,7 +113,7 @@ class OneUIDialog extends StatelessWidget {
   ///
   /// This sets the [Material.color] on this [OneUIDialog]'s [Material].
   ///
-  /// If `null`, [ThemeData.dialogBackgroundColor] is used.
+  /// If `null`, [DialogThemeData.backgroundColor] is used.
   /// {@endtemplate}
   final Color? backgroundColor;
 
@@ -189,7 +189,7 @@ class OneUIDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    final DialogTheme dialogTheme = DialogTheme.of(context);
+    final DialogThemeData dialogTheme = DialogTheme.of(context);
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     final EdgeInsets effectivePadding =
         mediaQuery.viewInsets + (insetPadding ?? EdgeInsets.zero);
@@ -225,7 +225,7 @@ class OneUIDialog extends StatelessWidget {
                       : const Color(0xfffcfcfc)
                   : backgroundColor ??
                       dialogTheme.backgroundColor ??
-                      Theme.of(context).dialogBackgroundColor,
+                      Theme.of(context).dialogTheme.backgroundColor,
               elevation:
                   elevation ?? dialogTheme.elevation ?? _defaultElevation,
               shape: useOneUITheme
@@ -417,7 +417,7 @@ class OneUIAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final DialogTheme dialogTheme = DialogTheme.of(context);
+    final DialogThemeData dialogTheme = DialogTheme.of(context);
 
     String? label = semanticLabel;
     switch (theme.platform) {

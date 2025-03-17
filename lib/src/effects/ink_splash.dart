@@ -146,8 +146,8 @@ class OneUIInkSplash extends InteractiveInkFeature {
         duration: _kSplashFadeDuration, vsync: controller.vsync)
       ..addListener(controller.markNeedsPaint)
       ..addStatusListener(_handleAlphaStatusChanged);
-    _alpha = _alphaController!.drive(IntTween(
-      begin: color.alpha,
+    _alpha = _alphaController!.drive(Tween<double>(
+      begin: color.a,
       end: 0,
     ));
 
@@ -165,7 +165,7 @@ class OneUIInkSplash extends InteractiveInkFeature {
   late Animation<double> _radius;
   late AnimationController _radiusController;
 
-  late Animation<int> _alpha;
+  late Animation<double> _alpha;
   AnimationController? _alphaController;
 
   /// Used to specify this type of ink splash for an [InkWell], [InkResponse],
@@ -201,7 +201,7 @@ class OneUIInkSplash extends InteractiveInkFeature {
 
   @override
   void paintFeature(Canvas canvas, Matrix4 transform) {
-    final Paint paint = Paint()..color = color.withAlpha(_alpha.value);
+    final Paint paint = Paint()..color = color.withAlpha(_alpha.value.toInt());
     Offset? center = _position;
     if (_repositionToReferenceBox)
       center = Offset.lerp(center, referenceBox.size.center(Offset.zero),

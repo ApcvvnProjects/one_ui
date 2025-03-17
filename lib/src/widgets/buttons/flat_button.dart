@@ -39,7 +39,7 @@ class OneUIFlatButton extends TextButton {
 
     return TextButton.styleFrom(
       backgroundColor: Colors.transparent,
-      disabledForegroundColor: colorScheme.onSurface.withOpacity(0.38),
+      disabledForegroundColor: colorScheme.onSurface.withValues(alpha: 0.38),
       shadowColor: theme.shadowColor,
       elevation: 0,
       textStyle: theme.textTheme.labelLarge,
