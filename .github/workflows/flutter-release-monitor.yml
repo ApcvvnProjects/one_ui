@@ -1,0 +1,148 @@
+name: Flutter Release Monitor
+on:
+  schedule:
+    # Check for new releases daily at 9 AM UTC
+    - cron: '0 9 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  check-flutter-releases:
+    name: Check for New Flutter Releases
+    runs-on: ubuntu-latest
+    outputs:
+      new-release: ${{ steps.check.outputs.new-release }}
+      release-info: ${{ steps.check.outputs.release-info }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for new Flutter releases
+        id: check
+        run: |
+          # Get the latest Flutter release information
+          LATEST_RELEASE=$(curl -s https://api.github.com/repos/flutter/flutter/releases/latest)
+          LATEST_VERSION=$(echo "$LATEST_RELEASE" | jq -r '.tag_name' | sed 's/v//')
+          RELEASE_DATE=$(echo "$LATEST_RELEASE" | jq -r '.published_at')
+          RELEASE_NOTES=$(echo "$LATEST_RELEASE" | jq -r '.body' | head -20)
+
+          # Get current minimum Flutter version from pubspec.yaml
+          CURRENT_MIN_VERSION=$(grep -E "flutter:\s*\">=" pubspec.yaml | sed 's/.*">=\([0-9.]*\)".*/\1/' || echo "3.0.0")
+
+          echo "Latest Flutter version: $LATEST_VERSION"
+          echo "Current minimum required: $CURRENT_MIN_VERSION"
+          echo "Release date: $RELEASE_DATE"
+
+          # Compare versions (simple comparison)
+          if [[ "$LATEST_VERSION" != "$CURRENT_MIN_VERSION" ]]; then
+            echo "new-release=true" >> $GITHUB_OUTPUT
+            echo "release-info=Latest: $LATEST_VERSION, Current min: $CURRENT_MIN_VERSION" >> $GITHUB_OUTPUT
+
+            # Save release info for issue creation
+            echo "$LATEST_RELEASE" > latest_release.json
+          else
+            echo "new-release=false" >> $GITHUB_OUTPUT
+          fi
+
+  create-compatibility-issue:
+    name: Create Compatibility Issue
+    needs: check-flutter-releases
+    if: needs.check-flutter-releases.outputs.new-release == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read release information
+        id: release
+        run: |
+          if [ -f latest_release.json ]; then
+            VERSION=$(jq -r '.tag_name' latest_release.json | sed 's/v//')
+            DATE=$(jq -r '.published_at' latest_release.json)
+            NOTES=$(jq -r '.body' latest_release.json | head -50)
+            URL=$(jq -r '.html_url' latest_release.json)
+
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "date=$DATE" >> $GITHUB_OUTPUT
+            echo "url=$URL" >> $GITHUB_OUTPUT
+
+            # Escape notes for GitHub issue body
+            ESCAPED_NOTES=$(echo "$NOTES" | sed 's/`/\\`/g' | sed 's/\$/\\$/g')
+            echo "notes<<EOF" >> $GITHUB_OUTPUT
+            echo "$ESCAPED_NOTES" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check for existing issue
+        id: check-issue
+        run: |
+          EXISTING_ISSUE=$(gh issue list --label "flutter-release" --state open --json number,title | jq -r ".[] | select(.title | contains(\"${{ steps.release.outputs.version }}\")) | .number" || echo "")
+          if [ -n "$EXISTING_ISSUE" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "issue-number=$EXISTING_ISSUE" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create compatibility issue
+        if: steps.check-issue.outputs.exists == 'false'
+        run: |
+          gh issue create \
+            --title "🔄 Flutter ${{ steps.release.outputs.version }} Released - Compatibility Check Required" \
+            --body "## 🚀 New Flutter Release Detected
+
+          **Version:** ${{ steps.release.outputs.version }}
+          **Release Date:** ${{ steps.release.outputs.date }}
+          **Release URL:** ${{ steps.release.outputs.url }}
+
+          ### Release Notes (Excerpt)
+          ${{ steps.release.outputs.notes }}
+
+          ### Required Actions
+
+          - [ ] Test package against Flutter ${{ steps.release.outputs.version }}
+          - [ ] Update CI workflow to include new version
+          - [ ] Check for breaking changes in release notes
+          - [ ] Update minimum Flutter version constraint if compatible
+          - [ ] Update documentation and changelog
+          - [ ] Run compatibility check script: \`./tool/check_compatibility.sh\`
+
+          ### Current Package Status
+          - **Minimum Flutter Version:** $(grep -E "flutter:\s*\">=" pubspec.yaml | sed 's/.*">=\([0-9.]*\)".*/\1/' || echo "Unknown")
+          - **Package Version:** $(grep -E "^version:" pubspec.yaml | awk '{print $2}' || echo "Unknown")
+
+          ---
+          *This issue was automatically created by the Flutter Release Monitor workflow.*" \
+            --label "flutter-release,compatibility-check,automated"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on existing issue
+        if: steps.check-issue.outputs.exists == 'true'
+        run: |
+          gh issue comment ${{ steps.check-issue.outputs.issue-number }} \
+            --body "🔄 **Update:** Flutter ${{ steps.release.outputs.version }} release detected. Please review compatibility requirements.
+
+          **Release Date:** ${{ steps.release.outputs.date }}
+          **Release URL:** ${{ steps.release.outputs.url }}
+
+          ---
+          *Automated update from Flutter Release Monitor*"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  notify-maintainers:
+    name: Notify Maintainers
+    needs: check-flutter-releases
+    if: needs.check-flutter-releases.outputs.new-release == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send notification (placeholder)
+        run: |
+          echo "🔔 New Flutter release detected: ${{ needs.check-flutter-releases.outputs.release-info }}"
+          echo "Maintainers should check the created/updated issue for compatibility requirements."
+          # In a real scenario, you might integrate with Slack, Discord, or email notifications here

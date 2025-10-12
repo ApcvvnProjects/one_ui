@@ -93,7 +93,7 @@ class _OneUIBottomNavigationTile extends StatelessWidget {
     required this.item,
     required this.animation,
     this.onTap,
-    this.colorTween,
+    required this.colorTween,
     this.flex,
     this.selected = false,
     required this.selectedLabelStyle,
@@ -106,7 +106,7 @@ class _OneUIBottomNavigationTile extends StatelessWidget {
   final OneUIBottomNavigationBarItem item;
   final Animation<double> animation;
   final VoidCallback? onTap;
-  final ColorTween? colorTween;
+  final ColorTween colorTween;
   final double? flex;
   final bool selected;
   final TextStyle selectedLabelStyle;
@@ -137,7 +137,7 @@ class _OneUIBottomNavigationTile extends StatelessWidget {
                 child: Center(
                   child: _Label(
                     selected: selected,
-                    colorTween: colorTween!,
+                    colorTween: colorTween,
                     animation: animation,
                     item: item,
                     selectedLabelStyle: selectedLabelStyle,
@@ -221,7 +221,7 @@ class _Label extends StatelessWidget {
                 ),
               ),
               alignment: Alignment.bottomCenter,
-              child: Text(item.label!),
+              child: Text(item.label),
             ),
           ),
         ),

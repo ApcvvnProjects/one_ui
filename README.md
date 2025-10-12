@@ -7,6 +7,21 @@ Unofficial implementation of Samsung One UI for [Flutter](https://flutter.dev).
 - [Samsung Developers | One UI Design Guidelines](https://developer.samsung.com/one-ui/index.html)
 - [Samsung Design | One UI Design Guidelines](https://design.samsung.com/global/contents/one-ui/download/oneui_design_guide_eng.pdf)
 
+## Getting Started
+
+1. Add the dependency to your `pubspec.yaml`:
+   ```yaml
+   dependencies:
+     one_ui: ^0.3.4
+   ```
+
+2. Import the package:
+   ```dart
+   import 'package:one_ui/one_ui.dart';
+   ```
+
+3. Use One UI widgets in your Flutter app!
+
 ## Widgets
 
 ### Bottom Navigation Bar
@@ -24,6 +39,11 @@ Scaffold(
         _index = value;
       });
     },
+    items: const [
+      OneUIBottomNavigationBarItem(label: 'Home'),
+      OneUIBottomNavigationBarItem(label: 'Search'),
+      OneUIBottomNavigationBarItem(label: 'Profile'),
+    ],
   ),
 )
 ```
@@ -188,6 +208,40 @@ Widget build(BuildContext context) {
   );
 }
 ```
+
+## Migration Guide
+
+### Version 0.3.4 Breaking Changes
+
+#### OneUIBottomNavigationBarItem Property Change
+
+The deprecated `title` property has been removed from `OneUIBottomNavigationBarItem`. Use the `label` property instead.
+
+**Before (deprecated):**
+```dart
+OneUIBottomNavigationBarItem(title: 'Home')
+```
+
+**After:**
+```dart
+OneUIBottomNavigationBarItem(label: 'Home')
+```
+
+This change aligns with Flutter's Material Design guidelines and improves consistency across the API.
+
+## Installation
+
+Add this to your package's `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  one_ui: ^0.3.4
+```
+
+### Requirements
+
+- **Flutter**: >=3.24.0
+- **Dart SDK**: >=3.5.0 <4.0.0
 
 ## Thanks to
 
