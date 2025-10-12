@@ -1,0 +1,44 @@
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  # Test against stable Flutter channel
+  test-stable:
+    name: Test on Flutter Stable
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Run tests
+        run: flutter test
+      - name: Analyze code
+        run: flutter analyze
+      - name: Format check
+        run: dart format --set-exit-if-changed .
+
+  # Check for deprecated APIs
+  check-deprecations:
+    name: Check for Deprecated APIs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Check for deprecations
+        run: |
+          echo "Checking for deprecated APIs..."
+          flutter analyze --fatal-infos 2>&1 | grep -i "deprecated\|deprecation" || echo "No deprecations found"
+      - name: Check pubspec for outdated dependencies
+        run: |
+          flutter pub outdated --json | jq '.packages[] | select(.current != .latest) | {name: .package, current: .current, latest: .latest}' || echo "All dependencies up to date"

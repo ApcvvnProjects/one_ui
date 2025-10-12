@@ -408,7 +408,7 @@ class _OneUIAppBarState extends State<OneUIAppBar> {
     assert(debugCheckHasMaterialLocalizations(context));
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
-    final AppBarTheme appBarTheme = AppBarTheme.of(context);
+    final AppBarThemeData appBarTheme = AppBarTheme.of(context);
     final ScaffoldState? scaffold = Scaffold.maybeOf(context);
     final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
 

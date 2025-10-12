@@ -1,0 +1,50 @@
+version: 2
+updates:
+  # Flutter SDK updates
+  - package-ecosystem: "pub"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "tockiib"
+    assignees:
+      - "tockiib"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "flutter"
+    ignore:
+      # Ignore major version updates for Flutter SDK to maintain compatibility
+      - dependency-name: "flutter"
+        update-types: ["version-update:semver-major"]
+      # Ignore major version updates for vector_math to avoid breaking changes
+      - dependency-name: "vector_math"
+        update-types: ["version-update:semver-major"]
+
+  # Example app dependencies
+  - package-ecosystem: "pub"
+    directory: "/example"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "tockiib"
+    assignees:
+      - "tockiib"
+    commit-message:
+      prefix: "deps-example"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "example"
+    ignore:
+      # Ignore major version updates for Flutter SDK
+      - dependency-name: "flutter"
+        update-types: ["version-update:semver-major"]
